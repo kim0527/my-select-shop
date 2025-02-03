@@ -259,3 +259,15 @@ gradle-app.setting
 *.hprof
 
 # End of https://www.toptal.com/developers/gitignore/api/macos,windows,java,intellij,git,gradle,maven
+
+# IntelliJ IDEA 관련 파일
+.idea/
+
+# Gradle 관련 파일
+build/
+gradle/
+gradlew
+gradlew.bat
+
+# 환경 설정 파일
+*.properties
