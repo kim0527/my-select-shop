@@ -1,8 +1,10 @@
 package com.sparta.myselectshop.member.controller;
 
+import com.sparta.myselectshop.auth.security.UserDetailsImpl;
 import com.sparta.myselectshop.member.UserRole;
 import com.sparta.myselectshop.member.dto.SignupRequestDto;
 import com.sparta.myselectshop.member.dto.UserInfoDto;
+import com.sparta.myselectshop.member.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

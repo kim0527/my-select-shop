@@ -19,7 +19,7 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
 
     @Value("${admin.token}")
-    private final String ADMIN_TOKEN = "AAABnvxRVklrnYxKZ0aHgTBcXukeZygoC";
+    private String adminToken;
 
     public void signup(SignupRequestDto requestDto) {
         String username = requestDto.getUsername();
@@ -41,7 +41,7 @@ public class UserService {
         // 사용자 ROLE 확인
         UserRole role = UserRole.USER;
         if (requestDto.isAdmin()) {
-            if (!ADMIN_TOKEN.equals(requestDto.getAdminToken())) {
+            if (!adminToken.equals(requestDto.getAdminToken())) {
                 throw new IllegalArgumentException("관리자 암호가 틀려 등록이 불가능합니다.");
             }
             role = UserRole.ADMIN;
