@@ -1,6 +1,7 @@
 package com.sparta.myselectshop.product;
 
 import com.sparta.myselectshop.external.naver.dto.ItemDto;
+import com.sparta.myselectshop.folder.ProductFolder;
 import com.sparta.myselectshop.member.User;
 import com.sparta.myselectshop.product.dto.ProductMypriceRequestDto;
 import com.sparta.myselectshop.product.dto.ProductRequestDto;
@@ -8,6 +9,9 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -38,6 +42,9 @@ public class Product extends Timestamped {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
+
+    @OneToMany(mappedBy = "product")
+    private List<ProductFolder> productFolderList = new ArrayList<>();
 
     public Product(ProductRequestDto requestDto, User user) {
         this.title = requestDto.getTitle();
