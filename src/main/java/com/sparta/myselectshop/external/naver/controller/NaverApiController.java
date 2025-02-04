@@ -1,4 +1,4 @@
-package com.sparta.myselectshop.external.naver.conrtoller;
+package com.sparta.myselectshop.external.naver.controller;
 
 import com.sparta.myselectshop.external.naver.dto.ItemDto;
 import com.sparta.myselectshop.external.naver.service.NaverApiService;
