@@ -1,6 +1,7 @@
 package com.sparta.myselectshop.product;
 
 import com.sparta.myselectshop.external.naver.dto.ItemDto;
+import com.sparta.myselectshop.member.User;
 import com.sparta.myselectshop.product.dto.ProductMypriceRequestDto;
 import com.sparta.myselectshop.product.dto.ProductRequestDto;
 import jakarta.persistence.*;
@@ -34,11 +35,16 @@ public class Product extends Timestamped {
     @Column(nullable = false)
     private int myprice;
 
-    public Product(ProductRequestDto requestDto) {
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+
+    public Product(ProductRequestDto requestDto, User user) {
         this.title = requestDto.getTitle();
         this.image = requestDto.getImage();
         this.link = requestDto.getLink();
         this.lprice = requestDto.getLprice();
+        this.user = user;
     }
 
     public void update(ProductMypriceRequestDto requestDto) {
