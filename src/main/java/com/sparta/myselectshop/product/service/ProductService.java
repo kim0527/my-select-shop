@@ -2,12 +2,17 @@ package com.sparta.myselectshop.product.service;
 
 import com.sparta.myselectshop.external.naver.dto.ItemDto;
 import com.sparta.myselectshop.member.User;
+import com.sparta.myselectshop.member.UserRole;
 import com.sparta.myselectshop.product.Product;
 import com.sparta.myselectshop.product.dto.ProductMypriceRequestDto;
 import com.sparta.myselectshop.product.dto.ProductRequestDto;
 import com.sparta.myselectshop.product.dto.ProductResponseDto;
 import com.sparta.myselectshop.product.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -69,6 +74,28 @@ public class ProductService {
             responseDtoList.add(new ProductResponseDto(product));
         }
         return responseDtoList;
+    }
+
+    public Page<ProductResponseDto> getProducts(User user,
+                                                int page, int size, String sortBy, boolean isAsc) {
+        // 페이징 처리
+        Sort.Direction direction = isAsc ? Sort.Direction.ASC : Sort.Direction.DESC;
+        Sort sort = Sort.by(direction, sortBy);
+        Pageable pageable = PageRequest.of(page, size, sort);
+
+        // 사용자 권한 가져와서 ADMIN 이면 전체 조회, USER 면 본인이 추가한 부분 조회
+        UserRole userRoleEnum = user.getRole();
+
+        Page<Product> productList;
+
+        if (userRoleEnum == UserRole.USER) {
+            // 사용자 권한이 USER 일 경우
+            productList = productRepository.findAllByUser(user, pageable);
+        } else {
+            productList = productRepository.findAll(pageable);
+        }
+
+        return productList.map(ProductResponseDto::new);
     }
 
 }
