@@ -3,6 +3,7 @@ package com.sparta.myselectshop.auth.jwt;
 import com.sparta.myselectshop.member.UserRole;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
+import io.jsonwebtoken.security.SignatureException;
 import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
